@@ -9,15 +9,17 @@ def canUnlockAll(boxes):
     Deteremines if all the boxes can be opened.
 
     Args:
-        boxes: A list of lists
+        boxes (list of lists): The lockboxes and their
+        respective keys
 
     Returns:
-        True if all boxes can be opened else False
+        bool: True if all boxes can be opened else False
     """
 
-    # If there is only one box (boxes[0]), it is unlocked
-    if len(boxes) == 1:
-        return True
+    if not boxes or not boxes[0]:
+        return False
+    
+    # Check if there are any keys in the boxes
 
     # Get all keys in current box in a set so there are no duplicates
     box_keys = set(boxes[0])
