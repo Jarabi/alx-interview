@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """ Lockboxes challenge """
 
+
 def canUnlockAll(boxes):
     """
     Deteremines if all the boxes can be opened.
 
     Args:
         boxes: A list of lists
-    
+
     Returns:
         True if all boxes can be opened else False
     """
@@ -15,7 +16,7 @@ def canUnlockAll(boxes):
     # If there is only one box (boxes[0]), it is unlocked
     if len(boxes) == 1:
         return True
-    
+
     # Get all keys in current box in a set so there are no duplicates
     box_keys = set(boxes[0])
 
