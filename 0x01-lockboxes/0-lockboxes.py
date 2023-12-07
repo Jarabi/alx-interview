@@ -14,7 +14,7 @@ def canUnlockAll(boxes):
     """
 
     # If there is only one box (boxes[0]), it is unlocked
-    if len(boxes) == 1:
+    if not boxes or len(boxes) == 1:
         return True
 
     # Get all keys in current box in a set so there are no duplicates
