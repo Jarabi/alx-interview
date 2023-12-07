@@ -16,29 +16,18 @@ def canUnlockAll(boxes):
         bool: True if all boxes can be opened else False
     """
 
-    if not boxes or not boxes[0]:
-        return False
-    
-    # Check if there are any keys in the boxes
-
-    # Get all keys in current box in a set so there are no duplicates
-    box_keys = set(boxes[0])
+    box_count = len(boxes)
 
     # Capture all unlocked boxes
-    unlocked_boxes = {0}
+    unlocked = set()
 
-    # Initialize iterator with the index of the first unlocked box
-    iterator = [0]
+    for idx, box in enumerate(boxes):
+        if len(box) == 0 or idx == 0:
+            unlocked.add(idx)
 
-    while (iterator):
-        # Get last index in the iterator
-        current_box = iterator.pop()
+        for key in box:
+            if key < box_count and key != idx:
+                # Update unlocked boxes
+                unlocked.add(key)
 
-        for key in boxes[current_box]:
-            if key not in unlocked_boxes:
-                # Update variables with new keys
-                box_keys.add(key)
-                unlocked_boxes.add(key)
-                iterator.append(key)
-
-    return len(unlocked_boxes) == len(boxes)
+    return len(unlocked) == box_count
