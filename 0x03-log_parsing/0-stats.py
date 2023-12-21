@@ -52,5 +52,6 @@ if __name__ == "__main__":
                 if line_count % 10 == 0:
                     print_status(total_size, code_freqs)
 
-    finally:
+    except KeyboardInterrupt:
         print_status(total_size, code_freqs)
+        raise
