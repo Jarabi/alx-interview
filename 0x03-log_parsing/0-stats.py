@@ -6,7 +6,7 @@ import sys
 import re
 
 
-def print_status(size, freqs):
+def print_status(size: int, freqs: dict) -> None:
     """
     Helper function to output status
     """
@@ -52,6 +52,5 @@ if __name__ == "__main__":
                 if line_count % 10 == 0:
                     print_status(total_size, code_freqs)
 
-    except KeyboardInterrupt:
+    finally:
         print_status(total_size, code_freqs)
-        raise
