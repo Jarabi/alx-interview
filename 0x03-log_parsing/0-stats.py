@@ -37,10 +37,11 @@ if __name__ == "__main__":
 
             if match:
                 code = int(match.group(3))
-                file_size = int(match.group(4))
+                file_size = match.group(4)
 
-                # Sum up file size
-                total_size += int(file_size)
+                if file_size.isdigit():
+                    # Sum up file size
+                    total_size += int(file_size)
 
                 # Collate the number of lines per status code
                 if code in code_freqs:
