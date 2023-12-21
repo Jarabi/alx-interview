@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
     total_size = 0
     log_count = 0
+    log_limit = 10
     status_codes = {}
 
     try:
@@ -39,17 +40,24 @@ if __name__ == "__main__":
                 # Increment the log count
                 log_count += 1
 
-                if log_count % 10 == 0:
-                    print("File size:", total_size)
+                if log_count == log_limit:
+                    print(f"File size: {total_size}")
 
                     for key, value in sorted(status_codes.items()):
                         print(f"{key}: {value}")
 
-            # Clear status codes
-            # status_codes = {}
+                    # Reset log count
+                    log_count = 0
+
+                    # Clear status codes
+                    status_codes = {}
+
+                    # Increase log limit by 10
+                    log_limit += 10
 
     except KeyboardInterrupt:
         print("File size:", total_size)
 
         for key, value in sorted(status_codes.items()):
             print(f"{key}: {value}")
+
