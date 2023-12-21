@@ -1,9 +1,20 @@
 #!/usr/bin/python3
 """
-A script that reads stdin line by line and computes metrics
+Log parsing
 """
 import sys
 import re
+
+
+def print_status(size, freqs):
+    """
+    Helper function to output status
+    """
+    print(f"File size: {size}")
+
+    for code in sorted(freqs.keys()):
+        if freqs[code] > 0:
+            print(f"{code}: {freqs[code]}")
 
 
 if __name__ == "__main__":
@@ -14,50 +25,32 @@ if __name__ == "__main__":
     # Check expected string pattern
     pattern = re.compile(fr'^({ip}) - ({date}) {request} (\d{{3}}) (\d+)$')
 
+    line_count = 0
     total_size = 0
-    log_count = 0
-    log_limit = 10
-    status_codes = {}
+    code_freqs =\
+        {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
     try:
         for line in sys.stdin:
+            line.strip()
             match = pattern.match(line)
 
             if match:
-                status_code = match.group(3)
-                file_size = match.group(4)
+                code = int(match.group(3))
+                file_size = int(match.group(4))
 
                 # Sum up file size
-                if file_size.isdigit():
-                    total_size += int(file_size)
+                total_size += int(file_size)
 
-                # Collate the number of logs per status code
-                if status_code in status_codes:
-                    status_codes[status_code] += 1
-                else:
-                    status_codes[status_code] = 1
+                # Collate the number of lines per status code
+                if code in code_freqs:
+                    code_freqs[code] += 1
 
                 # Increment the log count
-                log_count += 1
+                line_count += 1
 
-                if log_count == log_limit:
-                    print(f"File size: {total_size}")
+                if line_count % 10 == 0:
+                    print_status(total_size, code_freqs)
 
-                    for key, value in sorted(status_codes.items()):
-                        print(f"{key}: {value}")
-
-                    # Reset log count
-                    log_count = 0
-
-                    # Clear status codes
-                    status_codes = {}
-
-                    # Increase log limit by 10
-                    log_limit += 10
-
-    except KeyboardInterrupt:
-        print("File size:", total_size)
-
-        for key, value in sorted(status_codes.items()):
-            print(f"{key}: {value}")
-
+    finally:
+        print_status(total_size, code_freqs)
