@@ -13,7 +13,7 @@ def print_status(size: int, freqs: dict) -> None:
     print(f"File size: {size}")
 
     for code in sorted(freqs.keys()):
-        if freqs[code] > 0:
+        if isinstance(code, int) and freqs[code] > 0:
             print(f"{code}: {freqs[code]}")
 
 
