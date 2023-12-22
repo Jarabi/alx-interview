@@ -3,63 +3,53 @@
 Log parsing
 """
 import sys
-import re
 
 
-def print_status(size: int, freqs: dict) -> None:
+line_count = 0
+total_size = 0
+status_codes = {
+    '200': 0,
+    '301': 0,
+    '400': 0,
+    '401': 0,
+    '403': 0,
+    '404': 0,
+    '405': 0,
+    '500': 0
+}
+
+
+def print_status():
     """
     Helper function to output status
     """
-    print(f"File size: {size}")
+    print(f"File size: {total_size}")
 
-    for code in sorted(freqs.keys()):
-        if isinstance(code, int) and freqs[code] > 0:
-            print(f"{code}: {freqs[code]}")
+    for code, count in status_codes.items():
+        if count > 0:
+            print(f"{code}: {count}")
 
 
-if __name__ == "__main__":
-    ip = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
-    date = r'\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\]'
-    request = r'"GET /projects/260 HTTP/1.1"'
+try:
+    for line in sys.stdin:
+        if line_count == 10:
+            print_status()
+            line_count = 0
 
-    # Check expected string pattern
-    pattern = re.compile(fr'^({ip}) - ({date}) {request} (\d{{3}}) (\d+)$')
+        line = line.rstrip()
+        line_parts = line.split()
 
-    line_count = 0
-    total_size = 0
-    code_freqs = {
-        200: 0,
-        301: 0,
-        400: 0,
-        401: 0,
-        403: 0,
-        404: 0,
-        405: 0,
-        500: 0
-    }
+        if len(line_parts) > 4:
+            code = line_parts[-2]
+            total_size += int(line_parts[-1])
 
-    try:
-        for line in sys.stdin:
-            line.strip()
-            match = pattern.match(line)
+            # Collate the number of lines per status code
+            if code in status_codes:
+                status_codes[code] += 1
 
-            if match:
-                code = int(match.group(3))
-                file_size = match.group(4)
-
-                if file_size.isdigit():
-                    # Sum up file size
-                    total_size += int(file_size)
-
-                # Collate the number of lines per status code
-                if code in code_freqs:
-                    code_freqs[code] += 1
-
-                # Increment the log count
-                line_count += 1
-
-                if line_count % 10 == 0:
-                    print_status(total_size, code_freqs)
-
-    finally:
-        print_status(total_size, code_freqs)
+            # Increment the log count
+            line_count += 1
+except Exception:
+    pass
+finally:
+    print_status()
