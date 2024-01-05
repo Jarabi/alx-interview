@@ -17,9 +17,6 @@ def validUTF8(data):
 
     byte_count = 0
 
-    if data == [467, 133, 108]:
-        return True
-
     for byte in data:
         if byte_count == 0:
             if (byte >> 7) == 0b0:
@@ -37,6 +34,7 @@ def validUTF8(data):
         else:
             if (byte >> 6) != 0b10:
                 return False
+
             byte_count -= 1
 
     return byte_count == 0
