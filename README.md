@@ -9,3 +9,4 @@ This is a repository for ALX interview type challenges
 | 0x02 Minimum Operations	| Python	| Algorithm		|
 | 0x03 Log Parsing		| Python	| Algorithm		|
 | 0x04 UTF-8 Validation		| Python	| Algorithm		|
+| 0x05. N Queens		| Python	| Algorithm		|
