@@ -12,4 +12,5 @@ This is a repository for ALX interview type challenges
 | 0x05. N Queens		| Python	| Algorithm		|
 | 0x06. Star Wars API		| JavaScript	| Algorithm, API	|
 | 0x07. Rotate 2D Matrix	| Python	| Algorithm, Matrices	|
+| 0x08. Making Change		| Python	| Algorithm		|
 
