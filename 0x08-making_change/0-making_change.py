@@ -10,7 +10,7 @@ def makeChange(coins, total):
     Args:
         coins [list]: A list of values of the coins in your possessions
         total (int): Target amount
-    
+
     Return:
         coins: The fewest number of coins to meet 'total
         0: If 'total' is 0 or less
@@ -25,8 +25,8 @@ def makeChange(coins, total):
         while counted + coin <= total:
             counted += coin
             tally += 1
-            
+
     if counted != total:
         return -1
-    
+
     return tally
