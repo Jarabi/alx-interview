@@ -24,6 +24,9 @@ def island_perimeter(grid):
     for row in grid:
         for col in range(cols):
             if col == 1:
-                ones += 1
+                ones += 1i
+
+    if ones == 0:
+        return ones
 
     return grid_perimeter - (ones * 2)
