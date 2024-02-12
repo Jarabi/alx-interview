@@ -14,4 +14,5 @@ This is a repository for ALX interview type challenges
 | 0x07. Rotate 2D Matrix	| Python	| Algorithm, Matrices	|
 | 0x08. Making Change		| Python	| Algorithm		|
 | 0x09. Island Perimeter	| Python	| Algorithm		|
+| 0x0A. Prime Game		| Python	| Algorithm		|
 
