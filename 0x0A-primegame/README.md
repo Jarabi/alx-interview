@@ -14,7 +14,7 @@ They play `x` rounds of the game, where `n` may be different for each round. Ass
 * where `x` is the number of rounds and `nums` is an array of `n`
 * Return: name of the player that won the most rounds
 * If the winner cannot be determined, return `None`
-* You can assume `n` and `x` will not be larger than 10000
+* You can assume `n` and `x` will not be larger than 10,000
 * You cannot import any packages in this task
 
 Example:
